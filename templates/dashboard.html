@@ -1,38 +1,73 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>Welcome, {{ user.username }} ({{ user.role }})</h2>
-<hr>
 
-{% if user.role == 'customer' %}
-    <h4>My Bookings</h4>
-    <ul class="list-group">
-        {% for booking in bookings %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Service by: <strong>{{ booking.provider }}</strong>
-            <span class="badge bg-{{ 'success' if booking.status == 'Accepted' else 'warning' }}">
-                {{ booking.status }}
-            </span>
-        </li>
-        {% else %}
-        <p>No bookings yet.</p>
-        {% endfor %}
-    </ul>
+<div class="container mt-4">
+    <div class="p-4 rounded-3 text-white shadow-sm mb-5" style="background: linear-gradient(135deg, var(--deep-teal), #00687A);">
+        <h2 class="fw-bold">Welcome, {{ user.username }}! 👋</h2>
+        <p class="mb-0 opacity-75">
+            You are logged in as a <strong>{{ user.role.capitalize() }}</strong> 
+            {% if user.category %} ({{ user.category }}) {% endif %}
+        </p>
+    </div>
 
-{% else %}
-    <h4>Incoming Job Requests</h4>
-    <ul class="list-group">
-        {% for req in requests %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Request from: <strong>{{ req.customer }}</strong>
-            {% if req.status == 'Pending' %}
-                <a href="/accept/{{ req.id }}" class="btn btn-sm btn-primary">Accept Job</a>
+    {% if user.role == 'customer' %}
+        <h4 class="mb-3 text-secondary border-start border-4 border-success ps-3">My Bookings</h4>
+        <div class="row">
+            {% for booking in bookings %}
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <h5 class="card-title text-dark fw-bold mb-1">{{ booking.provider }}</h5>
+                            <p class="text-muted small mb-0">Service Provider</p>
+                        </div>
+                        
+                        {% if booking.status == 'Accepted' %}
+                            <span class="badge bg-success px-3 py-2 rounded-pill">Active Job</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Pending</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
             {% else %}
-                <span class="badge bg-success">Accepted</span>
-            {% endif %}
-        </li>
-        {% else %}
-        <p>No requests yet.</p>
-        {% endfor %}
-    </ul>
-{% endif %}
+            <div class="col-12 text-center py-5">
+                <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="80" class="mb-3 opacity-50">
+                <p class="text-muted">You haven't booked anyone yet.</p>
+                <a href="/" class="btn btn-outline-dark btn-sm rounded-pill">Find a Karigar</a>
+            </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <h4 class="mb-3 text-secondary border-start border-4 border-primary ps-3">Incoming Job Requests</h4>
+        <div class="row">
+            {% for req in requests %}
+            <div class="col-md-6 mb-3">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h5 class="fw-bold mb-0">{{ req.customer }}</h5>
+                                <small class="text-muted">wants to hire you</small>
+                            </div>
+                            <span class="badge bg-light text-dark border">{{ req.status }}</span>
+                        </div>
+                        
+                        {% if req.status == 'Pending' %}
+                            <a href="/accept/{{ req.id }}" class="btn w-100 text-white fw-bold" style="background-color: var(--deep-teal);">Accept Job ✅</a>
+                        {% else %}
+                            <button class="btn btn-success w-100 disabled">Job Accepted</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12 text-center py-5 bg-white rounded shadow-sm">
+                <p class="text-muted mb-0">No new requests yet. Relax! ☕</p>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

@@ -1,31 +1,45 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="card mx-auto" style="max-width: 400px;">
-    <div class="card-body">
-        <h3 class="text-center">Join Karigar</h3>
-        <form method="POST">
-            <div class="mb-3">
-                <label>Username (Name)</label>
-                <input type="text" name="username" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>I am a:</label>
-                <select name="role" class="form-select" id="roleSelect" onchange="toggleCat()">
-                    <option value="customer">Customer (Need Service)</option>
-                    <option value="provider">Provider (Offer Service)</option>
-                </select>
-            </div>
-            <div class="mb-3 d-none" id="catDiv">
-                <label>Category</label>
-                <select name="category" class="form-select">
-                    <option value="Plumber">Plumber</option>
-                    <option value="Electrician">Electrician</option>
-                    <option value="Tutor">Tutor</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Login / Register</button>
-        </form>
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    
+    <div class="card shadow-lg border-0 rounded-4" style="width: 100%; max-width: 400px;">
+        <div class="card-header text-white text-center py-3" style="background-color: var(--deep-teal); border-radius: 15px 15px 0 0;">
+            <h4 class="mb-0 fw-bold">Join Karigar</h4>
+            <small class="opacity-75">Sign in to continue</small>
+        </div>
+
+        <div class="card-body p-4">
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-secondary small">Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="Enter your name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-secondary small">I am a:</label>
+                    <select name="role" class="form-select" id="roleSelect" onchange="toggleCat()">
+                        <option value="customer">Customer (Looking for Service)</option>
+                        <option value="provider">Service Provider (Offering Service)</option>
+                    </select>
+                </div>
+                
+                <div class="mb-4 d-none" id="catDiv">
+                    <label class="form-label fw-bold text-secondary small">Select Your Skill</label>
+                    <select name="category" class="form-select">
+                        <option value="Plumber">Plumber</option>
+                        <option value="Electrician">Electrician</option>
+                        <option value="Tutor">Tutor</option>
+                        <option value="Cleaner">Cleaner</option>
+                        <option value="Technician">Technician</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn w-100 text-white fw-bold shadow-sm" style="background-color: var(--deep-teal); padding: 10px;">Login / Register</button>
+            </form>
+        </div>
     </div>
+
 </div>
 
 <script>
@@ -37,6 +51,3 @@
     }
 </script>
 {% endblock %}
-
-
-
