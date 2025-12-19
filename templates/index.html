@@ -1,24 +1,81 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="text-center mb-5">
-    <h1>Find Your Karigar</h1>
-    <p>Plumbers, Electricians, and Tutors near you.</p>
+
+<div class="hero-section">
+    <h1 class="display-3 fw-bold">Reliable Home Services</h1>
+    <p class="lead mb-4">Expert Technicians, Tutors, and Cleaners at your doorstep.</p>
+    {% if not session.get('user_id') %}
+        <a href="/login" class="btn-teal">Get Started</a>
+    {% endif %}
 </div>
 
-<div class="row">
-    {% for provider in providers %}
-    <div class="col-md-4 mb-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">{{ provider.username }}</h5>
-                <h6 class="text-muted">{{ provider.category }}</h6>
-                <p class="card-text">Verified Service Provider</p>
-                <a href="/book/{{ provider.id }}" class="btn btn-primary w-100">Book Now</a>
-            </div>
+<div class="text-center mt-5">
+    <h2 style="color: #006064; font-weight: bold;">Our Top Services</h2>
+    <p class="text-muted">Choose from our wide range of professional categories</p>
+</div>
+
+<div class="features-container">
+    
+    <div class="feature-card">
+        <img src="https://images.unsplash.com/photo-1621905476059-5f34604809f6?auto=format&fit=crop&w=500&q=60" class="feature-img" alt="Electrician">
+        <div class="feature-content">
+            <div class="feature-title">⚡ Electricians</div>
+            <p>Wiring repairs, UPS installation, and light fixing.</p>
         </div>
     </div>
-    {% else %}
-    <p class="text-center">No providers registered yet. Be the first!</p>
-    {% endfor %}
+
+    <div class="feature-card">
+        <img src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=500&q=60" class="feature-img" alt="Plumber">
+        <div class="feature-content">
+            <div class="feature-title">🚰 Plumbers</div>
+            <p>Leakage fix, pipe fitting, and water motor repair.</p>
+        </div>
+    </div>
+
+    <div class="feature-card">
+        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=500&q=60" class="feature-img" alt="Tutor">
+        <div class="feature-content">
+            <div class="feature-title">📚 Tutors</div>
+            <p>Expert home tutors for Math, Science, and English.</p>
+        </div>
+    </div>
+
+    <div class="feature-card">
+        <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a782?auto=format&fit=crop&w=500&q=60" class="feature-img" alt="Technician">
+        <div class="feature-content">
+            <div class="feature-title">🛠️ Technicians</div>
+            <p>AC repair, Refrigerator fixing, and Appliance service.</p>
+        </div>
+    </div>
+
+    <div class="feature-card">
+        <img src="https://images.unsplash.com/photo-1581578731117-104f8a338e2d?auto=format&fit=crop&w=500&q=60" class="feature-img" alt="Cleaner">
+        <div class="feature-content">
+            <div class="feature-title">🧹 Cleaners</div>
+            <p>Deep cleaning, sofa cleaning, and home disinfection.</p>
+        </div>
+    </div>
+
 </div>
+
+<div class="container mb-5">
+    <h2 class="border-bottom pb-2 mb-4" style="color: #006064;">Active Professionals Near You</h2>
+    <div class="row">
+        {% for provider in providers %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0" style="border-radius: 15px;">
+                <div class="card-body text-center">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ provider.username }}" class="rounded-circle mb-3" width="80" alt="Avatar">
+                    <h5 class="fw-bold">{{ provider.username }}</h5>
+                    <span class="badge" style="background-color: #006064;">{{ provider.category }}</span>
+                    <a href="/book/{{ provider.id }}" class="btn btn-outline-dark btn-sm d-block mt-3 rounded-pill">Book Now</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-center text-muted">No providers registered yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
