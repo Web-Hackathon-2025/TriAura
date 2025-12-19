@@ -1,2 +1,0 @@
-# TriAura
-Tarab, Ammara, Zuhaa 

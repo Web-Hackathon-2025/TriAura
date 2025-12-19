@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Welcome, {{ user.username }} ({{ user.role }})</h2>
+<hr>
+
+{% if user.role == 'customer' %}
+    <h4>My Bookings</h4>
+    <ul class="list-group">
+        {% for booking in bookings %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Service by: <strong>{{ booking.provider }}</strong>
+            <span class="badge bg-{{ 'success' if booking.status == 'Accepted' else 'warning' }}">
+                {{ booking.status }}
+            </span>
+        </li>
+        {% else %}
+        <p>No bookings yet.</p>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <h4>Incoming Job Requests</h4>
+    <ul class="list-group">
+        {% for req in requests %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Request from: <strong>{{ req.customer }}</strong>
+            {% if req.status == 'Pending' %}
+                <a href="/accept/{{ req.id }}" class="btn btn-sm btn-primary">Accept Job</a>
+            {% else %}
+                <span class="badge bg-success">Accepted</span>
+            {% endif %}
+        </li>
+        {% else %}
+        <p>No requests yet.</p>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
