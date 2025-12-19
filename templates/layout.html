@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Karigar - Professional Services</title>
+    
     <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/png">
     
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -13,9 +14,13 @@
 
     <nav class="navbar-custom">
         <div class="container d-flex justify-content-between align-items-center">
-            <a href="/" class="brand-logo d-flex align-items-center">
-                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" height="40" class="me-2">
-                Karigar
+            
+            <a href="/" class="brand-logo d-flex align-items-center text-decoration-none text-white">
+                <img src="{{ url_for('static', filename='logo.png') }}" 
+                     alt="" 
+                     height="50" 
+                     class="me-2"
+                     onerror="this.style.display='none'"> <span class="fs-3 fw-bold">Karigar</span>
             </a>
             
             <div class="nav-links">
